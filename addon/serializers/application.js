@@ -1,5 +1,7 @@
 import Ember from "ember";
 import DS from "ember-data";
+import { dasherize, capitalize, camelize } from '@ember/string';
+import { singularize, pluralize } from "ember-inflector";
 
 export default DS.RESTSerializer.extend({
 
@@ -15,7 +17,7 @@ export default DS.RESTSerializer.extend({
   */
   normalizeArrayResponse: function( store, primaryType, payload ) {
     var namespacedPayload = {};
-    namespacedPayload[ Ember.String.pluralize( primaryType.modelName ) ] = payload.results;
+    namespacedPayload[ pluralize( primaryType.modelName ) ] = payload.results;
 
     // get the count metadata sent by parse-server if needed
     if ( payload.hasOwnProperty("count") ) {
@@ -43,7 +45,7 @@ export default DS.RESTSerializer.extend({
   * @description Overrides ember-data function.
   */
   modelNameFromPayloadKey: function( key ) {
-    return Ember.String.dasherize( Ember.String.singularize( key ) );
+    return dasherize( singularize( key ) );
   },
 
 
@@ -227,7 +229,7 @@ export default DS.RESTSerializer.extend({
       return "_User";
     }
     else {
-      return Ember.String.capitalize(Ember.String.camelize(key));
+      return capitalize(camelize(key));
     }
   },
 
