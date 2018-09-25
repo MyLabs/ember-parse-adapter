@@ -2,7 +2,6 @@
 * @description Allow model classes to correctly handle relations remove operations
 * @see serializer::serializeHasMany and serializer::serializeAttribute
 */
-import Ember from "ember";
 
 export default Ember.Mixin.create({
   _deleted: {}, // contains the pointers of each object to remove for each relation: eg { "relationship1_key": [],  "relationship2_key": [], etc. }
